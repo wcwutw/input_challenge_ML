@@ -10,10 +10,10 @@ import datetime
 #KEY_RIGHT = 3  # Right arrow (user system)
 #KEY_DOWN = 1   # Down arrow (user system)
 #KEY_UP = 0     # Up arrow (user system)
-KEY_LEFT = 81   # Left arrow (for KBD)
-KEY_RIGHT = 83  # Right arrow (for KBD)
-KEY_DOWN = 84   # Down arrow (for KBD)
-KEY_UP = 82     # Up arrow (for KBD)
+KEY_LEFT = 81   # Left arrow (for Windows KBD)
+KEY_RIGHT = 83  # Right arrow (for Windows KBD)
+KEY_DOWN = 84   # Down arrow (for Windows KBD)
+KEY_UP = 82     # Up arrow (for Windows KBD)
 KEY_ESC = 27   # Escape
 KEY_R = ord('r')
 
