@@ -5,3 +5,5 @@ opencv-python
 numpy
 Pillow
 tqdm
+matplotlib
+scikit-learn
