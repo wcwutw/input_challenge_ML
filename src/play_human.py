@@ -6,10 +6,14 @@ import os
 import numpy as np
 import datetime
 
-KEY_LEFT = 2   # Left arrow (user system)
-KEY_RIGHT = 3  # Right arrow (user system)
-KEY_DOWN = 1   # Down arrow (user system)
-KEY_UP = 0     # Up arrow (user system)
+#KEY_LEFT = 2   # Left arrow (user system)
+#KEY_RIGHT = 3  # Right arrow (user system)
+#KEY_DOWN = 1   # Down arrow (user system)
+#KEY_UP = 0     # Up arrow (user system)
+KEY_LEFT = 81   # Left arrow (for KBD)
+KEY_RIGHT = 83  # Right arrow (for KBD)
+KEY_DOWN = 84   # Down arrow (for KBD)
+KEY_UP = 82     # Up arrow (for KBD)
 KEY_ESC = 27   # Escape
 KEY_R = ord('r')
 
@@ -138,9 +142,29 @@ def main():
                 data.append((state, action))
 
     if data:
-        timestamp = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
-        filename = f'human_demo_{timestamp}.npy'
-        np.save(os.path.join(DATA_DIR, filename), data)
+        try:
+            states = np.array([item[0] for item in data])
+            actions = np.array([item[1] for item in data])
+
+            timestamp = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
+            np.save(os.path.join(DATA_DIR, f'human_demo_states_{timestamp}.npy'), states)
+            np.save(os.path.join(DATA_DIR, f'human_demo_actions_{timestamp}.npy'), actions)
+            print(f"Saved {len(data)} data points to separate state/action files")
+
+        except ValueError as e:
+            print(f"Could not save as numpy arrays: {e}")
+            print("States shape info:", [np.array(item[0]).shape for item in data[:5]])
+            import pickle
+            timestamp = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
+            filename = f'human_demo_{timestamp}.pkl'
+            with open(os.path.join(DATA_DIR, filename), 'wb') as f:
+                pickle.dump(data, f)
+            print(f"Saved as pickle file: {filename}")
+
+    #if data:
+    #    timestamp = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
+    #    filename = f'human_demo_{timestamp}.npy'
+    #    np.save(os.path.join(DATA_DIR, filename), data, allow_pickle=True)
 
     cv2.destroyAllWindows()
 
